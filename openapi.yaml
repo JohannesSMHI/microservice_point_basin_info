@@ -1,17 +1,17 @@
 openapi: 3.0.3
 info:
   version: 1.0.0
-  title: Station Registry Example
-  description: Simple station registry example service. __For demo & testing purposes__.
+  title: SVAR Area Example
+  description: Get water body definitions for a given position.
 tags:
-- name: stations
+- name: water_bodies
 paths:
-  /stations:
+  /positions:
     get:
-      operationId: app.get_station_list
+      operationId: app.get_area_example
       tags:
-      - stations
-      description: Return a list of stations
+      - water_bodies
+      description: Return a geojson of one water_body
       responses:
         200:
           description: Successful operation
@@ -20,52 +20,48 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Station'
-  /stations/{station_id}:
-    get:
-      operationId: app.get_station
+                  $ref: '#/components/schemas/WaterBody'
+  /positions/{latitude}&{longitude}&{key}:
+    post:
+      operationId: app.get_water_body
       tags:
-      - stations
-      description: Return information about one station
+      - water_bodies
+      description: Returns information about one water body for which the given position lies within.
+      parameters:
+        - in: path
+          name: latitude
+          schema:
+            type: string
+            properties:
+              latitude:
+                type: string
+        - in: path
+          name: longitude
+          schema:
+            type: string
+            properties:
+              longitude:
+                type: string
+        - in: path
+          name: key
+          schema:
+            type: string
+            properties:
+              key:
+                type: string
       responses:
         200:
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Station'
+                type: object
+                items:
+                  $ref: '#/components/schemas/WaterBody'
         404:
-          description: Station not found
-      parameters:
-      - $ref: '#/components/parameters/station_id'
+          description: Position not found
+
 components:
-  parameters:
-    station_id:
-      name: station_id
-      in: path
-      description: Unique identifier for the station
-      required: true
-      schema:
-        type: string
-        example: SK1900
   schemas:
-    Station:
+    WaterBody:
       type: object
-      properties:
-        id:
-          type: string
-          example: SK1000
-        name:
-          type: string
-          example: N KOSTERFJORDEN 1
-        coordinates:
-          type: object
-          properties:
-            latitude:
-              type: number
-              format: float
-              example: 58.90209
-            longitude:
-              type: number
-              format: float
-              example: 11.08653

@@ -8,10 +8,14 @@ tags:
 paths:
   /positions:
     get:
-      operationId: app.get_area_example
+      operationId: app.get_info
       tags:
       - water_bodies
       description: Return a geojson of one water_body
+      parameters:
+        - $ref: '#/components/parameters/latitude'
+        - $ref: '#/components/parameters/longitude'
+        - $ref: '#/components/parameters/attribute'
       responses:
         200:
           description: Successful operation
@@ -21,47 +25,25 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/WaterBody'
-  /positions/{latitude}&{longitude}&{key}:
-    post:
-      operationId: app.get_water_body
-      tags:
-      - water_bodies
-      description: Returns information about one water body for which the given position lies within.
-      parameters:
-        - in: path
-          name: latitude
-          schema:
-            type: string
-            properties:
-              latitude:
-                type: string
-        - in: path
-          name: longitude
-          schema:
-            type: string
-            properties:
-              longitude:
-                type: string
-        - in: path
-          name: key
-          schema:
-            type: string
-            properties:
-              key:
-                type: string
-      responses:
-        200:
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                items:
-                  $ref: '#/components/schemas/WaterBody'
         404:
           description: Position not found
-
 components:
   schemas:
     WaterBody:
       type: object
+  parameters:
+    latitude:
+      in: query
+      name: latitude
+      schema:
+        type: string
+    longitude:
+      in: query
+      name: longitude
+      schema:
+        type: string
+    attribute:
+      in: query
+      name: attribute
+      schema:
+        type: string

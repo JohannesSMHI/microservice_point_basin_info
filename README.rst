@@ -10,7 +10,7 @@ Developed by Shd at SMHI.
 - Python based service using Flask
 - Get water body information based on a given point (latitude and longitude).
 - `Microservice Template <https://github.com/sharksmhi/microservice_template>`_
-- Get the `shapefile <https://www.smhi.se/data/hydrologi/sjoar-och-vattendrag/ladda-ner-data-fran-svenskt-vattenarkiv-1.20127>`_ used in this repo
+- Get the latest version of the `shapefile <https://www.smhi.se/data/hydrologi/sjoar-och-vattendrag/ladda-ner-data-fran-svenskt-vattenarkiv-1.20127>`_ used in this repo
 
 
 💻 Installation - Getting started

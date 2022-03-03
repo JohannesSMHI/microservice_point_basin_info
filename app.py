@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# Copyright (c) 2022 SMHI, Swedish Meteorological and Hydrological Institute.
+# License: MIT License (see LICENSE.txt or http://opensource.org/licenses/mit).
 """
 TEMPLATE: https://github.com/sharksmhi/microservice_template
 
@@ -17,7 +20,7 @@ handler = ShapeHandler()
 
 
 def get_info(*args, latitude=None, longitude=None, attribute=None, **kwargs):
-    """Get function."""
+    """Return dictionary with point related information based in arguments."""
     return handler.get_position_info(
         latitude=latitude,
         longitude=longitude,
@@ -31,6 +34,7 @@ app = connexion.FlaskApp(
     options={'swagger_url': '/'},
 )
 app.add_api('openapi.yaml')
+
 
 if __name__ == "__main__":
     app.run(port=5000)

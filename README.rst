@@ -16,20 +16,24 @@ Developed by Shd at SMHI.
 💻 Installation - Getting started
 ----------------------------------
 
-Create a virtual environment for your project:
+When using GDAL related python packages (eg. geopandas) we find that a conda
+environment is the best option for installation. Start by installing miniconda
+on your system and then:
+
+Create environment:
 
 .. code-block:: bash
 
-    python -m venv venv
+    conda env create --file environment.yaml
 
-Activate the virtual environment:
-
-.. code-block:: bash
-
-    source ./venv/bin/activate
-
-Install requirements with pip:
+Activate environment:
 
 .. code-block:: bash
 
-    pip install -r requirements.txt
+    conda activate py38
+
+Run microservice:
+
+.. code-block:: bash
+
+    python app.py

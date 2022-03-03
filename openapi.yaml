@@ -31,19 +31,102 @@ components:
   schemas:
     WaterBody:
       type: object
+      properties:
+        OBJECTID:
+          type: integer
+          example: 1
+          format: int64
+        HID:
+          type: string
+          example: 654575-234250
+        TYP_NFS06:
+          type: integer
+          example: 22
+          format: int64
+        NAMN:
+          type: string
+          example: "Seskaröfjärden"
+        VISS_EU_CD:
+          type: string
+          example: SE654575-234250
+        VISS_MS_CD:
+          type: string
+          example: SE654575-234250
+        WB:
+          type: string
+          example: Y
+        District:
+          type: string
+          example: SE1
+        COMP_AUTH:
+          type: string
+          example: BV
+        Country:
+          type: string
+          example: SE
+        Version:
+          type: string
+          example: SVAR_2016_3b
+        URL_VISS:
+          type: string
+          example: http://www.viss.lansstyrelsen.se/waters.aspx?waterEUID=SE654575-234250
+        DATUM:
+          type: string
+          example: '2006-12-31'
+        ObjVer:
+          type: string
+          example: '2010'
+        BASIN_NR:
+          type: integer
+          example: 1
+          format: int64
+        VattenID:
+          type: string
+          example: WA94182650
+        UUID:
+          type: string
+          example: 2AB8D495-6EF5-4840-A6A0-298591CB66CA
+        PopNamn:
+          type: string
+          example: "Seskaröfjärden_(65.78,23.71)"
+        CWVattenID:
+          type: string
+          example: WA70941197
+        CWUUID:
+          type: string
+          example: E07C437A-B9A1-4A66-9319-00B6779B67B5
+        Shape_Leng:
+          type: number
+          example: 109862.691902
+          format: float
+        Shape_Area:
+          type: number
+          example: 72717185.9973
+          format: float
+        TYPOMR_KOD:
+          type: string
+          example: '22'
+        TYPOMRNAMN:
+          type: string
+          example: 22 - Bottenviken, inre kustvatten
   parameters:
     latitude:
       in: query
       name: latitude
       schema:
-        type: string
+        type: number
+        format: float
+        example: 58.4665
     longitude:
       in: query
       name: longitude
       schema:
-        type: string
+        type: number
+        format: float
+        example: 10.4449
     attribute:
       in: query
       name: attribute
       schema:
         type: string
+        example: NAMN

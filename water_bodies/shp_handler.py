@@ -2,14 +2,13 @@
 Created on 2021-03-25 20:33
 @author: johannes
 """
-import os
+from pathlib import Path
 import geopandas as gp
 from shapely.geometry import Point
 
 
-RESOURCES = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), 'data', 'resources'
-)
+RESOURCES = Path(__file__).parent.joinpath('data', 'resources')
+ERROR_STRING = 'Missing parameters, got latitude={}; longitude={}; attribute={}'
 
 
 class SHARKGeoDataFrame(gp.GeoDataFrame):
@@ -20,18 +19,10 @@ class SHARKGeoDataFrame(gp.GeoDataFrame):
         """Description."""
         return SHARKGeoDataFrame
 
-    def to_geojson(self, **kwargs):
+    def to_geojson(self, boolean):
         """Return a python feature collection (i.e. the geointerface)
         representation of the GeoDataFrame."""
-        geo = {
-            "type": "FeatureCollection",
-            "features": list(self.iterfeatures(**kwargs)),
-        }
-
-        if kwargs.get("show_bbox", False):
-            geo["bbox"] = tuple(self.total_bounds)
-
-        return geo
+        return self[boolean]._to_geo()
 
 
 class ShapeHandler:
@@ -43,13 +34,14 @@ class ShapeHandler:
 
     def __init__(self):
         """Initialize."""
-        shapes = gp.read_file(os.path.join(RESOURCES, 'Havsomr_SVAR_2016_3b_cp1252.shp'))
+        shapes = gp.read_file(RESOURCES.joinpath(
+            'Havsomr_SVAR_2016_3b_cp1252.shp')
+        )
         self.shapes = SHARKGeoDataFrame(shapes)
 
     def get_example(self, obj_id=48):
         """Return example."""
-        # return self.shapes[self.shapes['OBJECTID'] == obj_id].to_geojson()
-        return self.shapes[self.shapes['OBJECTID'] == obj_id]._to_geo()
+        return self.shapes.to_geojson(self.shapes['OBJECTID'] == obj_id)
 
     def find_area_for_point(self, lat, lon):
         """Return area information about the given location.
@@ -58,14 +50,17 @@ class ShapeHandler:
         """
         boolean = self.shapes.contains(Point(float(lon), float(lat)))
         if any(boolean):
-            # return self.shapes[boolean].to_geojson()
-            return self.shapes[boolean]._to_geo()
+            return self.shapes.to_geojson(boolean)
+        else:
+            return ERROR_STRING.format(lat, lon, ''), 404
 
     def get_key_value_for_point(self, lat, lon, key):
         """Return area information about the given location and attribute."""
         boolean = self.shapes.contains(Point(float(lon), float(lat)))
         if any(boolean):
             return {key: self.shapes.loc[boolean, key].values[0]}
+        else:
+            return ERROR_STRING.format(lat, lon, key), 404
 
     def get_position_info(self, latitude=None, longitude=None, attribute=None):
         """Return information based on arguments."""
@@ -76,11 +71,4 @@ class ShapeHandler:
         elif all(v is None for v in (latitude, longitude, attribute)):
             return self.get_example()
         else:
-            return (
-                'Missing parameters, got latitude={}; longitude={}; attribute={}'.format(
-                    latitude,
-                    longitude,
-                    attribute
-                ),
-                404
-            )
+            return ERROR_STRING.format(latitude, longitude, attribute), 404

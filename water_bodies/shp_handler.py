@@ -3,6 +3,7 @@
 # License: MIT License (see LICENSE.txt or http://opensource.org/licenses/mit).
 """
 Created on 2021-03-25 20:33
+
 @author: johannes
 """
 from pathlib import Path
@@ -30,7 +31,8 @@ class SHARKGeoDataFrame(gp.GeoDataFrame):
         """Return geojson.
 
         A python feature collection (i.e. the geointerface/geojson)
-        representation of the GeoDataFrame."""
+        representation of the GeoDataFrame.
+        """
         return self[boolean]._to_geo()
 
 

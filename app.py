@@ -2,7 +2,7 @@
 # Copyright (c) 2022 SMHI, Swedish Meteorological and Hydrological Institute.
 # License: MIT License (see LICENSE.txt or http://opensource.org/licenses/mit).
 """
-TEMPLATE: https://github.com/sharksmhi/microservice_template
+TEMPLATE: https://github.com/shark-microservices/microservice_template
 
 Examples:
     get:

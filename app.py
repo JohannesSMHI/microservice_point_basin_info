@@ -20,7 +20,7 @@ handler = ShapeHandler()
 
 
 def get_info(*args, latitude=None, longitude=None, attribute=None, **kwargs):
-    """Return dictionary with point related information based in arguments."""
+    """Return dictionary with point related information based on arguments."""
     return handler.get_position_info(
         latitude=latitude,
         longitude=longitude,

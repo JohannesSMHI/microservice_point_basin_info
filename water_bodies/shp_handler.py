@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# Copyright (c) 2022 SMHI, Swedish Meteorological and Hydrological Institute.
+# License: MIT License (see LICENSE.txt or http://opensource.org/licenses/mit).
 """
 Created on 2021-03-25 20:33
 @author: johannes
@@ -12,15 +15,21 @@ ERROR_STRING = 'Missing parameters, got latitude={}; longitude={}; attribute={}'
 
 
 class SHARKGeoDataFrame(gp.GeoDataFrame):
-    """Description."""
+    """Stores data from shapefile."""
 
     @property
     def _constructor(self):
-        """Description."""
+        """Construct SHARKGeoDataFrame.
+
+        Constructor for SHARKGeoDataFrame, overrides method
+        in geopandas.GeoDataFrame.
+        """
         return SHARKGeoDataFrame
 
     def to_geojson(self, boolean):
-        """Return a python feature collection (i.e. the geointerface)
+        """Return geojson.
+
+        A python feature collection (i.e. the geointerface/geojson)
         representation of the GeoDataFrame."""
         return self[boolean]._to_geo()
 
@@ -40,7 +49,7 @@ class ShapeHandler:
         self.shapes = SHARKGeoDataFrame(shapes)
 
     def get_example(self, obj_id=48):
-        """Return example."""
+        """Return geojson example."""
         return self.shapes.to_geojson(self.shapes['OBJECTID'] == obj_id)
 
     def find_area_for_point(self, lat, lon):

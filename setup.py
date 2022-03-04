@@ -27,7 +27,7 @@ setuptools.setup(
     description="Get water body information based on a given point",
     long_description=README,
     long_description_content_type="text/markdown",
-    url="https://github.com/JohannesSMHI/microservice_point_basin_info",
+    url="https://github.com/shark-microservices/microservice_point_basin_info",
     packages=setuptools.find_packages(),
     package_data={'microservice_point_basin_info': [
         os.path.join('water_bodies', 'resources', '*.cpg'),

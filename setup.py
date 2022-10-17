@@ -21,7 +21,7 @@ NAME = 'microservice_point_basin_info'
 
 setuptools.setup(
     name=NAME,
-    version="0.1.0",
+    version="0.1.1",
     author="SMHI - NODC",
     author_email="shark@smhi.se",
     description="Get water body information based on a given point",

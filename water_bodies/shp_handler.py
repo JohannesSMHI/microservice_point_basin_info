@@ -11,7 +11,7 @@ import geopandas as gp
 from shapely.geometry import Point
 
 
-RESOURCES = Path(__file__).parent.joinpath('data', 'resources')
+RESOURCES = Path(__file__).parent.joinpath('resources')
 ERROR_STRING = 'Missing parameters, got latitude={}; longitude={}; attribute={}'
 
 

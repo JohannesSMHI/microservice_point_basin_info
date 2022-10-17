@@ -12,6 +12,7 @@ Examples:
         http://localhost:5000/positions?latitude=58&longitude=20&attribute=NAMN
         # http://localhost:5000/positions?58&20&-
         # http://localhost:5000/positions?58&20&NAMN
+
 """
 import connexion
 from water_bodies import ShapeHandler
